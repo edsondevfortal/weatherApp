@@ -1,0 +1,6 @@
+{
+  "name": "Weather App",
+  "version": "1.0.0",
+  "description": "Uma simples tela para consulta, via API, de algumas informações do clima dos estados brasileiros.",
+  "author": "Edson Aguiar"
+}
