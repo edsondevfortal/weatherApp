@@ -1,6 +1,6 @@
 const searchBtn = document.querySelector(".search-box button");
 
-searchBtn.addEventListener("click", () => {
+searchBtn.addEventListener("click", async () => {
   const container = document.querySelector(".container");
   const searchInput = document.querySelector(".search-box input");
   const weatherBox = document.querySelector(".weather-box");
@@ -19,19 +19,45 @@ searchBtn.addEventListener("click", () => {
     Clouds: "images/cloud.png",
     Mist: "images/mist.png",
   };
-  
-  error404.style.display = "none";
-  error404.classList.remove("fadeIn");
 
-  image.src = images[data.weather[0].main] || "";
-  temperature.innerHTML = `${data.main.temp}<span>°C</span>`;
-  description.innerHTML = `${data.weather[0].description}`;
-  humidity.innerHTML = `${data.main.humidity}%`;
-  wind.innerHTML = `${data.wind.speed}Km/h`;
+  const API_KEY = "a4c56d22667cf3969a29daeedeea7ab8";
+  const city = searchInput.value;
 
-  weatherBox.style.display = "";
-  weatherDetails.style.display = "";
-  weatherBox.classList.add("fadeIn");
-  weatherDetails.classList.add("fadeIn");
-  container.style.height = "590px";
+  if (city === "") {
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city},{BR}&appid=${API_KEY}`
+    );
+    const data = await response.json();
+
+    if (data.cod === "404") {
+      container.style.height = "400px";
+      weatherBox.style.display = "none";
+      weatherDetails.style.display = "none";
+      error404.style.display = "block";
+      error404.classList.add("fadeIn");
+      return;
+    }
+
+    error404.style.display = "none";
+    error404.classList.remove("fadeIn");
+
+    image.src = images[data.weather[0].main] || "";
+    temperature.innerHTML = `${parseInt(data.main.temp)}<span>°C</span>`;
+    description.innerHTML = `${data.weather[0].description}`;
+    humidity.innerHTML = `${data.main.humidity}%`;
+    wind.innerHTML = `${parseInt(data.wind.speed)}Km/h`;
+
+    weatherBox.style.display = "";
+    weatherDetails.style.display = "";
+    weatherBox.classList.add("fadeIn");
+    weatherDetails.classList.add("fadeIn");
+    container.style.height = "590px";
+  } catch (error) {
+    console.log(error);
+    // tratamento de exceções
+  }
 });
