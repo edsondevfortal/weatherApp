@@ -20,7 +20,7 @@ searchBtn.addEventListener("click", async () => {
     Mist: "images/mist.png",
   };
 
-  const API_KEY = "a4c56d22667cf3969a29daeedeea7ab8";
+  const API_KEY = "";
   const city = searchInput.value;
 
   if (city === "") {
