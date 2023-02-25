@@ -57,6 +57,7 @@ searchBtn.addEventListener("click", async () => {
     weatherDetails.classList.add("fadeIn");
     container.style.height = "590px";
   } catch (error) {
-    // console.log(error)
+    console.log(error);
+    // tratamento de exceções
   }
 });
