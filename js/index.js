@@ -29,7 +29,7 @@ searchBtn.addEventListener("click", async () => {
 
   try {
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city},{BR}&appid=${API_KEY}`
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`
     );
     const data = await response.json();
 
